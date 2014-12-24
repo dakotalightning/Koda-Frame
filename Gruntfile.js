@@ -67,7 +67,7 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             scripts: {
-                src: ['scripts/*.js'],
+                src: ['scripts/main.js'],
                 dest: 'scripts/concat/app.concat.js'
             }
         },
@@ -90,8 +90,8 @@ module.exports = function(grunt) {
                 tasks: ['compass', 'cssc', 'cssmin']
             },
             js: {
-                files: ['Scripts/global/*.js'],
-                tasks: ['concat', 'uglify']
+                files: ['jsx/*.jsx'],
+                tasks: ['react', 'concat', 'uglify']
             },
             watch: {
                 files: ['<%= jshint.files %>'],
