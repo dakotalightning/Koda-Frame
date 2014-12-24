@@ -1,0 +1,29 @@
+{
+    "name": "Dakota - React",
+    "version": "1.0",
+    "dependencies": {},
+    "devDependencies": {
+        "grunt":                        "*",
+
+        "jit-grunt":                    "*",
+        "time-grunt":                   "*",
+        "grunt-newer":                  "*",
+        "grunt-concurrent":             "*",
+
+        "grunt-contrib-clean":          "*",
+        "grunt-contrib-cssmin":         "*",
+        "grunt-contrib-compass":        "*",
+
+        "grunt-contrib-watch":          "*",
+        "grunt-contrib-copy":           "*",
+        "grunt-shell":                  "*",
+
+        "grunt-react":                  "*",
+        "grunt-contrib-uglify":         "*",
+        "grunt-contrib-coffee":         "*",
+        "grunt-contrib-concat":         "*",
+        "grunt-contrib-jshint":         "*",
+
+        "grunt-cssc":                   "*"
+    }
+}
