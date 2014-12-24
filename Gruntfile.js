@@ -46,19 +46,24 @@ module.exports = function(grunt) {
         // scripts
         // ========================================
         react: {
-            single_file_output: {
-                files: {
-                    'scripts/main.js': 'jsx/main.jsx'
-                }
+            dynamic_mappings: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'jsx',
+                        src: ['**/*.jsx'],
+                        dest: 'scripts/react',
+                        ext: '.js'
+                    }
+                ]
             }
         },
         jshint: {
             files: ['gruntfile.js', '<%= concat.scripts.src %>'],
             options: {
+                force: true,
                 globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true
+                    jQuery: true
                 }
             }
         },
@@ -67,7 +72,7 @@ module.exports = function(grunt) {
                 separator: ';'
             },
             scripts: {
-                src: ['scripts/main.js'],
+                src: ['scripts/react/*.js'],
                 dest: 'scripts/concat/app.concat.js'
             }
         },

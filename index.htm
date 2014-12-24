@@ -7,10 +7,35 @@
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="style/style.min.css">
+
 </head>
 <body>
-    <div id="content"></div>
+    <div id="content">
+
+    </div>
+
+    <div id="modal">
+        <h1>Look at me!</h1>
+        <p>I'm a modal window.</p>
+    </div>
+    <button id="trigger" class="trigger-button" type="button">Launch Modal</button>
 
     <script src="scripts/app.min.js"></script>
+    <script>
+        var myContent = document.getElementById('modal');
+
+        var myModal = new Modal({
+            content: myContent
+        });
+
+        var triggerButton = document.getElementById('trigger');
+
+        triggerButton.addEventListener('click', function() {
+            myModal.open();
+        });
+    </script>
+
 </body>
 </html>

@@ -1,4 +1,5 @@
-
+var stop = false;
+var call;
 
 var CommentBox = React.createClass({displayName: "CommentBox",
     render: function() {
@@ -14,23 +15,30 @@ var CommentBox = React.createClass({displayName: "CommentBox",
 
 var CommentBox = React.createClass({displayName: "CommentBox",
     loadCommentsFromServer: function() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-            }.bind(this)
-        });
+        console.debug("load Comments From Server");
+        if(!stop){
+            $.ajax({
+                url: this.props.url,
+                dataType: 'json',
+                success: function(data) {
+                    this.setState({data: data});
+                }.bind(this),
+                error: function(xhr, status, err) {
+                    stop = true;
+                    console.error(this.props.url, status, err.toString());
+                }.bind(this)
+            });
+        }else {
+            console.debug("there is an error - cancel call");
+            clearInterval(call);
+        }
     },
     getInitialState: function() {
         return {data: []};
     },
     componentDidMount: function() {
         this.loadCommentsFromServer();
-        setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        call = setInterval(this.loadCommentsFromServer, this.props.pollInterval);
     },
     render: function() {
         return (
