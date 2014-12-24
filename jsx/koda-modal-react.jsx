@@ -31,12 +31,67 @@
 
     };
 
+    // react convertion
+    // ================
+    var CloseButton = React.createClass({
+        render: function() {
+            return (
+                <button class="scotch-close close-button">x<button>
+            );
+        }
+    });
+
+    var KodaModalOverlay = React.createClass({
+        render: function() {
+            return (
+                <div class="scotch-overlay {this.options.classname}"><div>
+            );
+        }
+    });
+
+    var KodaModalContent = React.createClass({
+        render: function() {
+            return (
+                <div class="scotch-content">
+                    {this.state.content}
+                <div>
+            );
+        }
+    });
+
+    var KodaModal = React.createClass({
+        render: function() {
+            var content, contentHolder, docFrag;
+
+            if (typeof this.options.content === "string") {
+                content = this.options.content;
+            } else {
+                content = this.options.content.innerHTML;
+            },
+            return (
+                <div class="scotch-modal {this.options.classname}">
+                <KodaModalContent />
+                // If closeButton option is true, add a close button
+                if (this.options.closeButton === true) {
+                    <CloseButton />
+                }
+                <div>
+            );
+        }
+    });
+
+    React.render(
+        <KodaModal />,
+        <KodaModalOverlay />,
+        document.getElementById('content')
+    );
+
     // Public Methods
     // ===============
 
     Modal.prototype.open = function() {
         // Build out our Modal
-        buildOut.call(this);
+        <KodaModal />
 
         // Initialize our event listeners
         initializeEvents.call(this);
@@ -81,59 +136,6 @@
     // Private Methods
     // ===============
 
-    function buildOut() {
-
-        var content, contentHolder, docFrag;
-
-        /*
-        * If content is an HTML string, append the HTML string.
-        * If content is a domNode, append its content.
-        */
-
-        if (typeof this.options.content === "string") {
-            content = this.options.content;
-        } else {
-            content = this.options.content.innerHTML;
-        }
-
-        // Create a DocumentFragment to build with
-        docFrag = document.createDocumentFragment();
-
-        // Create modal element
-        this.modal = document.createElement("div");
-        this.modal.className = "scotch-modal " + this.options.className;
-        this.modal.style.minWidth = this.options.minWidth + "px";
-        this.modal.style.maxWidth = this.options.maxWidth + "px";
-
-        // If closeButton option is true, add a close button
-        if (this.options.closeButton === true) {
-            this.closeButton = document.createElement("button");
-            this.closeButton.className = "scotch-close close-button";
-            this.closeButton.innerHTML = "×";
-            this.modal.appendChild(this.closeButton);
-        }
-
-        // If overlay is true, add one
-        if (this.options.overlay === true) {
-            this.overlay = document.createElement("div");
-            this.overlay.className = "scotch-overlay " + this.options.classname;
-            docFrag.appendChild(this.overlay);
-        }
-
-        // Create content area and append to modal
-        contentHolder = document.createElement("div");
-        contentHolder.className = "scotch-content";
-        contentHolder.innerHTML = content;
-        this.modal.appendChild(contentHolder);
-
-        // Append modal to DocumentFragment
-        docFrag.appendChild(this.modal);
-
-        // Append DocumentFragment to body
-        document.body.appendChild(docFrag);
-
-    }
-
     // Utility method to extend defaults with user options
     function extendDefaults(source, properties) {
         var property;
@@ -164,5 +166,8 @@
         if (el.style.OTransition) return "oTransitionEnd";
         return 'transitionend';
     }
+
+
+
 
 }());
